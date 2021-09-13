@@ -97,11 +97,36 @@ let icons = [
 	}
 ];
 
-const container = document.getElementsByClassName("my_icons-box");
+const container = document.getElementById("my_icons-box");
 
 printToPage(icons , container);
 
+const types = getUniquePropertyValues(icons, "type"); 
+console.log(types);
 
+
+
+
+
+
+
+// const arrayType = []; 
+// icons.filter((element, index) => {
+//     if (!arrayType.includes(icons["type"])) {
+//         arrayType.push(icons["type"]);
+//     }
+// });
+function getUniquePropertyValues(array, property) {
+    const types = [];
+
+    array.forEach((element, index) => { 
+        if (!types.includes(element[property])) {
+            types.push(element[property]);
+        }
+    })
+
+    return types;
+}
 /**
  * Mostro in pagina all'interno del container, in HTML, tutti gli elemetni dell'array dato
  * @param array L'array da stampare
@@ -111,14 +136,15 @@ printToPage(icons , container);
 
     array.forEach((element) => {
 
-        const {name, prefix, family, type} = element;
+        const {name, prefix, type, family,} = element;
         
         //aggiungo all'html del container il nostro contenueto in html
         container.innerHTML += 
-        `<div class="col">
-        <i class="${family} ${prefix}${name}"> </i>
-        <h4 class=""my_icon-title>${name}</h4>
+        `<div class="col-2 my_box my_box-${type}">
+            <i class="${family} ${prefix}${name}"> </i>
+            <h4 class=""my_icon-title">${name}</h4>
         </div> 
         `
     });
 }
+
